@@ -19,4 +19,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="background.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="missile1.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="f-22.png">
+      <Filter>Source Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
