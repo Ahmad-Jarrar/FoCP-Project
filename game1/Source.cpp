@@ -3,6 +3,8 @@
 #include <math.h>
 
 
+
+
 #define PI 3.14159265359
 #define MAIN_MENU 10
 #define CHOOSE 20
@@ -26,32 +28,50 @@ int main()
 	sf::Time time;
 	time.Zero;
 	int score = 0, t_score;
-
-
+	char sscore[15] = "Score: ";
+	char sfscore[15];
 
 	sf::Vector2u tempu;
+	sf::Font font;
+	font.loadFromFile("Adventure.otf");
+	sf::Text textGameOver;
+	sf::Text textScore;
+	textGameOver.setFont(font);
+	textScore.setFont(font);
+	textGameOver.setString("Game Over");
+	textGameOver.setCharacterSize(40);
+	textGameOver.setFillColor(sf::Color::Red);
+	textGameOver.setStyle(sf::Text::Bold);
+
+	textScore.setCharacterSize(40);
+	textScore.setFillColor(sf::Color::Black);
+	textScore.setStyle(sf::Text::Bold);
+
 
 	//Make Window
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Ghauri", sf::Style::Titlebar | sf::Style::Close);
 	sf::RectangleShape background;
 	background.setSize(sf::Vector2f(1280,720));
 	// User controlled Object
-	sf::RectangleShape player(sf::Vector2f(90.0f, 70.0f));
-	player.setOrigin(45.0f, 35.0f);
+	sf::RectangleShape player(sf::Vector2f(90.0f, 90.0f));
+	player.setOrigin(45.0f, 45.0f);
 	player.setPosition(640.0f, 360.0f);
+	float rotation_speed = 0.7f;
+	float velocity = 0.2f;
+	sf::Vector2f rVelocity;
 	
 	// Object Textures
 	sf::Texture backgroundTexture;
 	backgroundTexture.loadFromFile("./sprites/background.png");
 	background.setTexture(&backgroundTexture);
 	sf::Texture player1Texture;
-	player1Texture.loadFromFile("./sprites/plane1.png");
+	player1Texture.loadFromFile("./sprites/plane5.png");
 	sf::Texture player2Texture;
-	player2Texture.loadFromFile("./sprites/plane2.png");
+	player2Texture.loadFromFile("./sprites/plane6.png");
 	sf::Texture player3Texture;
-	player3Texture.loadFromFile("./sprites/plane3.png");
-	player.setTexture(&player1Texture);
+	player3Texture.loadFromFile("./sprites/plane5.png");
 	sf::Texture missileTexture;
+	player.setTexture(&player3Texture);
 	missileTexture.loadFromFile("./sprites/missile.png");
 	tempu = missileTexture.getSize();
 	sf::Texture tutorial;
@@ -80,8 +100,7 @@ int main()
 	sf::Vector2f missileVelocity;
 	missileVelocity.x = 0.3f;
 	missileVelocity.y = 0.0f;
-	float velocity = 0.2f;
-	sf::Vector2f rVelocity;
+	
 
 
 	//Buttons
@@ -123,7 +142,7 @@ int main()
 
 	sf::RectangleShape backButton(sf::Vector2f(150.0f, 100.0f));
 	backButton.setOrigin(75.0f, 50.0f);
-	backButton.setPosition(125.0f, 125.0f);
+	backButton.setPosition(1155.0f, 125.0f);
 
 	//Button Textures
 	sf::Texture chooseTexture;
@@ -157,6 +176,7 @@ int main()
 	while (window.isOpen())
 	{
 		window.clear();
+		background.setTexture(&backgroundTexture);
 		window.draw(background);
 		sf::Event evnt;
 
@@ -167,14 +187,7 @@ int main()
 			case sf::Event::Closed:
 				window.close();
 				break;
-			case sf::Event::Resized:
-				printf("Window Height: %d\tWidth: %d\n", evnt.size.height, evnt.size.width);
-				break;
-			case sf::Event::TextEntered:
-				if (evnt.text.unicode < 128)
-				{
-					printf("%c", evnt.text.unicode);
-				}
+			
 			default:
 				break;
 			}
@@ -199,6 +212,17 @@ int main()
 				{
 					window.close();
 				}
+				else if (result == PLAY)
+				{
+					for (size_t i = 0; i < 3; i++)
+					{
+						windowMode = result;
+						missile[i].setPosition((float)(rand() % 1000), 0.0f);
+						player.setPosition(640.0f, 360.0f);
+						score = 0;
+					}
+
+				}
 				else if (result > 0)
 				{
 					windowMode = result;
@@ -214,22 +238,28 @@ int main()
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				int result = buttonPressedOnChoose(sf::Mouse::getPosition());
+				int result = buttonPressedOnChoose(sf::Mouse::getPosition() - window.getPosition());
 				if (result == 1)
 				{
-					
+					player.setTexture(&player1Texture);
+					rotation_speed = 0.7f;
+					windowMode = MAIN_MENU;
 				}
 				else if (result == 2)
 				{
-
+					player.setTexture(&player2Texture);
+					rotation_speed = 0.9f;
+					windowMode = MAIN_MENU;
 				}
 				else if (result == 3)
 				{
-
+					player.setTexture(&player3Texture);
+					rotation_speed = 1.1f;
+					windowMode = MAIN_MENU;
 				}
-				else if (result > 0)
+				else if (result == MAIN_MENU)
 				{
-					windowMode = result;
+					windowMode = MAIN_MENU;
 				}
 			}
 			window.draw(backButton);
@@ -250,7 +280,7 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 			{
 
-				player.rotate(-0.5f);
+				player.rotate(-rotation_speed);
 
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
@@ -262,7 +292,7 @@ int main()
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 			{
-				player.rotate(0.5f);
+				player.rotate(rotation_speed);
 
 			}
 
@@ -281,7 +311,7 @@ int main()
 			speed[0] = 0.3f;
 			speed[1] = 0.45f;
 			speed[2] = 0.6f;
-			float max_rotation_angle = 0.5f; //can rotate only 0.1f rads/frame
+			float max_rotation_angle = 0.4f; //can rotate only 0.1f rads/frame
 			sf::Vector2f temps;
 			for (size_t i = 0; i < 3; i++)
 			{
@@ -338,10 +368,11 @@ int main()
 				if (hitTest(missile[i].getPosition(),player.getPosition()))
 				{
 					windowMode = GAME_END;
-					score = time.asSeconds() / 2;
+					t_score = score / 20;
 				}
 			}
-			score = (int)(time.asSeconds()) / 2;
+			score++;
+			
 
 			window.draw(player);
 			window.draw(missile[0]);
@@ -354,7 +385,7 @@ int main()
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				int result = buttonPressedOnTutorial(sf::Mouse::getPosition());
+				int result = buttonPressedOnTutorial(sf::Mouse::getPosition() - window.getPosition());
 				if (result > 0)
 				{
 					windowMode = result;
@@ -370,12 +401,29 @@ int main()
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				int result = buttonPressedOnEndGame(sf::Mouse::getPosition());
-				if (result > 0)
+				int result = buttonPressedOnEndGame(sf::Mouse::getPosition() - window.getPosition());
+				if (result == MAIN_MENU)
 				{
 					windowMode = result;
 				}
+				else if (result == PLAY)
+				{
+					for (size_t i = 0; i < 3; i++)
+					{
+						windowMode = result;
+						missile[i].setPosition((float)(rand() % 1000), 0.0f);
+						player.setPosition(640.0f, 360.0f);
+						score = 0;
+					}
+
+				}
 			}
+			sprintf(sfscore,"%s%d",sscore,t_score);
+			textScore.setString(sfscore);
+			textGameOver.setPosition(600.0f,100.0f);
+			textScore.setPosition(600.0f, 150.0f);
+			window.draw(textGameOver);
+			window.draw(textScore);
 			window.draw(restartButton);
 			window.draw(mainMenuButton);
 
@@ -418,7 +466,7 @@ int buttonPressedOnMainMenu(sf::Vector2i mousePos)
 	{
 		return PLAY;
 	}
-	else if (fabs(mousePos.x - 640.0f) < 75.0f && fabs(mousePos.y - 360.0f) < 50.0f)
+	else if (fabs(mousePos.x - 640.0f) < 75.0f && fabs(mousePos.y - 385.0f) < 50.0f)
 	{
 		return CHOOSE;
 	}
@@ -438,12 +486,12 @@ int buttonPressedOnMainMenu(sf::Vector2i mousePos)
 
 int buttonPressedOnEndGame(sf::Vector2i mousePos)
 {
-	if (fabs(mousePos.x - 480.0f) < 75.0f && fabs(mousePos.y - 360.0f) < 50.0f) // Distance within Range of Play Button
+	if (fabs(mousePos.x - 480.0f) < 100.0f && fabs(mousePos.y - 360.0f) < 100.0f) // Distance within Range of Play Button
 	{
 		return PLAY;
 	}
 	
-	else if (fabs(mousePos.x - 800.0f) < 75.0f && fabs(mousePos.y - 360.0f) < 50.0f)
+	else if (fabs(mousePos.x - 800.0f) < 100.0f && fabs(mousePos.y - 360.0f) < 50.0f)
 	{
 		return MAIN_MENU;
 	}
@@ -455,21 +503,21 @@ int buttonPressedOnEndGame(sf::Vector2i mousePos)
 
 int buttonPressedOnChoose(sf::Vector2i mousePos)
 {
-	if (fabs(mousePos.x - 125.0f) < 75.0f && fabs(mousePos.y - 125.0f) < 50.0f) // Distance within Range of Play Button
+	if (fabs(mousePos.x - 1155.0f) < 75.0f && fabs(mousePos.y - 125.0f) < 50.0f) // Distance within Range of Play Button
 	{
 		return MAIN_MENU;
 	}
 	else if (fabs(mousePos.x - 320.0f) < 75.0f && fabs(mousePos.y - 360.0f) < 50.0f)
 	{
-		return MAIN_MENU;
+		return 1;
 	}
 	else if (fabs(mousePos.x - 640.0f) < 75.0f && fabs(mousePos.y - 360.0f) < 50.0f)
 	{
-		return MAIN_MENU;
+		return 2;
 	}
 	else if (fabs(mousePos.x - 960.0f) < 75.0f && fabs(mousePos.y - 360.0f) < 50.0f)
 	{
-		return MAIN_MENU;
+		return 3;
 	}
 	else
 	{
@@ -479,7 +527,7 @@ int buttonPressedOnChoose(sf::Vector2i mousePos)
 
 int buttonPressedOnTutorial(sf::Vector2i mousePos)
 {
-	if (fabs(mousePos.x - 125.0f) < 75.0f && fabs(mousePos.y - 125.0f) < 50.0f) // Distance within Range of Play Button
+	if (fabs(mousePos.x - 1155.0f) < 75.0f && fabs(mousePos.y - 125.0f) < 50.0f) // Distance within Range of Play Button
 	{
 		return MAIN_MENU;//
 	}
@@ -494,3 +542,4 @@ int hitTest(sf::Vector2f r1, sf::Vector2f r2)
 {
 	return ((r1.x + 20 >= r2.x) && (r1.x <= r2.x + 20) && (r1.y + 20 >= r2.y) && (r1.y <= r2.y + 20));
 }
+

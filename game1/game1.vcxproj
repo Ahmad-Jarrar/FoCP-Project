@@ -74,7 +74,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -127,9 +127,15 @@
     <Image Include="buttons\buttonTutorial.png" />
     <Image Include="sprites\background.png" />
     <Image Include="sprites\missile.png" />
-    <Image Include="sprites\plane1.png" />
     <Image Include="sprites\plane2.png" />
     <Image Include="sprites\plane3.png" />
+    <Image Include="sprites\plane5.png" />
+    <Image Include="sprites\plane6.png" />
+    <Image Include="sprites\tutorial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Adventure.otf" />
+    <Font Include="arial.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

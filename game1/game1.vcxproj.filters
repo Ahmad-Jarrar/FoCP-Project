@@ -53,14 +53,28 @@
     <Image Include="sprites\missile.png">
       <Filter>Resource Files\sprites</Filter>
     </Image>
-    <Image Include="sprites\plane1.png">
-      <Filter>Resource Files\sprites</Filter>
-    </Image>
     <Image Include="sprites\plane2.png">
       <Filter>Resource Files\sprites</Filter>
     </Image>
     <Image Include="sprites\plane3.png">
       <Filter>Resource Files\sprites</Filter>
     </Image>
+    <Image Include="sprites\tutorial.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+    <Image Include="sprites\plane5.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+    <Image Include="sprites\plane6.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf">
+      <Filter>Source Files</Filter>
+    </Font>
+    <Font Include="Adventure.otf">
+      <Filter>Source Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>
