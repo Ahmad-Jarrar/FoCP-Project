@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\buttonTextures">
+      <UniqueIdentifier>{83807ade-f530-466a-a641-edf00adacff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\sprites">
+      <UniqueIdentifier>{a9ff1664-dd21-4018-9e8a-bf4f048ab752}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -20,14 +26,41 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png">
-      <Filter>Source Files</Filter>
+    <Image Include="buttons\buttonChoose.png">
+      <Filter>Resource Files\buttonTextures</Filter>
     </Image>
-    <Image Include="missile1.png">
-      <Filter>Source Files</Filter>
+    <Image Include="buttons\buttonMainMenu.png">
+      <Filter>Resource Files\buttonTextures</Filter>
     </Image>
-    <Image Include="f-22.png">
-      <Filter>Source Files</Filter>
+    <Image Include="buttons\buttonPlay.png">
+      <Filter>Resource Files\buttonTextures</Filter>
+    </Image>
+    <Image Include="buttons\buttonQuit.png">
+      <Filter>Resource Files\buttonTextures</Filter>
+    </Image>
+    <Image Include="buttons\buttonRestart.png">
+      <Filter>Resource Files\buttonTextures</Filter>
+    </Image>
+    <Image Include="buttons\buttonTutorial.png">
+      <Filter>Resource Files\buttonTextures</Filter>
+    </Image>
+    <Image Include="buttons\buttonBack.png">
+      <Filter>Resource Files\buttonTextures</Filter>
+    </Image>
+    <Image Include="sprites\background.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+    <Image Include="sprites\missile.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+    <Image Include="sprites\plane1.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+    <Image Include="sprites\plane2.png">
+      <Filter>Resource Files\sprites</Filter>
+    </Image>
+    <Image Include="sprites\plane3.png">
+      <Filter>Resource Files\sprites</Filter>
     </Image>
   </ItemGroup>
 </Project>

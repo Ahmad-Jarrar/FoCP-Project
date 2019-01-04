@@ -118,9 +118,18 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png" />
-    <Image Include="f-22.png" />
-    <Image Include="missile1.png" />
+    <Image Include="buttons\buttonBack.png" />
+    <Image Include="buttons\buttonChoose.png" />
+    <Image Include="buttons\buttonMainMenu.png" />
+    <Image Include="buttons\buttonPlay.png" />
+    <Image Include="buttons\buttonQuit.png" />
+    <Image Include="buttons\buttonRestart.png" />
+    <Image Include="buttons\buttonTutorial.png" />
+    <Image Include="sprites\background.png" />
+    <Image Include="sprites\missile.png" />
+    <Image Include="sprites\plane1.png" />
+    <Image Include="sprites\plane2.png" />
+    <Image Include="sprites\plane3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
